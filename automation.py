@@ -96,6 +96,12 @@ def update_automation(frame):
         time.sleep(1)
 #        stop_automation()
         return out
+    if stop_line_seen and right:
+        print('turn left initialized')
+        set_motor_speeds(40)
+        time.sleep(1.4)
+        _send_command('forward')
+        time.sleep(1)
     elif stop_line_seen:
         elapsed = time.time() - stop_time
         time.sleep(6.0)

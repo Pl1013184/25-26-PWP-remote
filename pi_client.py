@@ -60,7 +60,7 @@ class MotorDriver:
         if motor_id!=1:
             speed-=3
         self.pwm.setDutycycle(pwm_pin, speed)
-        
+
         # set the two direction pins
         if motor_id == 0:          # LEFT
             if direction == 'forward':
