@@ -18,7 +18,7 @@ import numpy as np
 from flask import Flask, Response
 
 from automation import start_automation, stop_automation, update_automation
-
+from calibrate import calibrate
 app = Flask(__name__)
 
 # Camera setup
@@ -135,6 +135,7 @@ def play():
     """
     Start automation mode.
     """
+    calibrate()
     start_automation()
     return "Automation started"
 
