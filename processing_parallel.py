@@ -1,6 +1,10 @@
 import cv2
 import numpy as np
 
+def ptl(point:tuple,line:list,linPoint):
+    x=point[0]
+    y=point[1]
+    z=line[0]*line[1][0]+line[1][1]
 
 def process_frame(frame):
     # Convert to HSV and boost saturation
@@ -53,7 +57,7 @@ def process_frame(frame):
    # cv2.polylines(out,roi_pts,True,(0,0,255),5)
     mask = np.zeros((h, w), dtype=np.uint8)
     cv2.fillPoly(mask, roi_pts, 255)
-    roi = cv2.bitwise_and(edges, edges, mask=mask) 
+    roi = cv2.bitwise_and(edges, edges, mask=mask)
     # Detect line segments for lane following
     lines = cv2.HoughLinesP(
         roi,
@@ -164,5 +168,7 @@ def process_frame(frame):
     #    determining_point=(x1+x2)//2
         cv2.line(out, (x1, y1), (x2, y2), (0, 255, 255), 4)
         stop_line_detected = True
+    #point to line
+    cv2.circle(out,(out.shape[1]//2,9*out.shape[0]//10),5,(255,0,0),-1)
     cv2.polylines(out,roi_pts,True,(0,0,255),5)
     return out, steering_value, stop_line_detected,center_line,lft,rght

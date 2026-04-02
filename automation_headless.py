@@ -113,13 +113,14 @@ def update_automation(frame):
         if elapsed >= STOP_DELAY_SECONDS:
             stop_automation()
             return out
-    if center_line:
+  #
+#  if center_line:
     # Normal line-following behavior
-        _send_command('forward')
-    elif left:
-        set_motor_speeds(10.0)
-    elif right:
-        set_motor_speeds(-10.0)
-    else:
-       stop_automation(True)
+        #_send_command('forward')
+ #   elif left:
+        #set_motor_speeds(10.0)
+#    elif right:
+        #set_motor_speeds(-10.0)
+ #   else:
+#       stop_automation(True)
     return out
