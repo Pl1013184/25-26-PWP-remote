@@ -44,8 +44,8 @@ def start_automation():
     """
     Turn on automatic line-following mode.
     """
-    global auto_running, stop_line_seen, stop_time
-
+    global auto_running, stop_line_seen, stop_time,stopped
+    stopped=True
     auto_running = True
     stop_line_seen = False
     stop_time = None
@@ -55,9 +55,10 @@ def stop_automation(pause=False):
     """
     Turn off automatic line-following mode and stop the robot.
     """
-    global auto_running, stop_line_seen, stop_time
+    global auto_running, stop_line_seen, stop_time, stopped
 
     auto_running = pause
+    stopped =False
     stop_line_seen = False
     stop_time = None
     explorer=False
@@ -84,10 +85,10 @@ def explorer(l,right,horizontal):
         print('turn left initialized-following horizontal')
         log_sto('turn left initialized-following horizontal')
         _send_command('forward')
-        time.sleep(3.8)
+        time.sleep(settings[1][0])
 #        print('turn right initialized')
-        set_motor_speeds(-40)
-        time.sleep(1.5)
+        set_motor_speeds(settings[1][1])
+        time.sleep(settings[1][2])
         _send_command('forward')
         time.sleep(5)
         stop_automation(True)
@@ -145,14 +146,14 @@ def update_automation(frame):
     Returns:
         out: The processed overlay image.
     """
-    global auto_running, stop_line_seen, stop_time, explored
+    global auto_running, stop_line_seen, stop_time, explored,stopped
 
 
     # Always process the frame so the processed stream can still display overlays
     out, steering_value, stop_line_detected, center_line,left,right,det,obst = process_frame(frame)
     print("explorer:",explored)
-    log_sto("explorer mode:"+str(explored))
-    if not auto_running:
+    log_sto("explorer mode:"+str(explored)+" ")
+    if not auto_running or not stopped:
         return out,det
     if not explored:
         explored = explorer(left,right,stop_line_detected)
