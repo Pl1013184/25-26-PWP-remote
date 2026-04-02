@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    td {
+      border: 1px solid black;
+      width: 800px;
+      height: 200px;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .controls-table button {
+      width: 70px;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hidden iframe so Play/Stop does not replace the GUI page -->
+<iframe name="hiddenFrame"></iframe>
+
+<table>
+  <tr>
+
+    <!-- Raw camera stream -->
+    <td style="height: 200px">
+      <!-- Change IP tomorrow if needed -->
+      <img src="http://192.168.240.123:5000/stream" width="800" height="500" />
+    </td>
+
+    <td>
+      <table class="controls-table">
+
+        <!-- Row 1 -->
+        <tr>
+          <td></td>
+          <td style="height: 50px;">
+		<form action="http://192.168.240.123:5000/do/forward" method="post" target="hiddenFrame">
+        	    <button type = "submit">Forward</button>
+		</form>
+          </td>
+          <td></td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr>
+          <td style="height: 100px;">
+		<form action="http://192.168.240.123:5000/do/left" method="post" target="hiddenFrame">
+                    <button type = "submit">left</button>
+                </form>
+	</td>
+
+          <!-- CENTER CELL -->
+          <td style="height: 100px;">
+
+            <!-- Start automation -->
+            <form action="http://192.168.240.123:5000/play" method="post" target="hiddenFrame">
+              <button type="submit">Start</button>
+            </form>
+
+            <br>
+
+            <!-- Stop automation -->
+            <form action="http://192.168.240.123:5000/stop" method="post" target="hiddenFrame">
+              <button type="submit">Stop</button>
+            </form>
+
+          </td>
+
+          <td style="height: 100px;">
+	<form action="http://192.168.240.123:5000/do/right" method="post" target="hiddenFrame">
+                    <button type = "submit">right</button>
+        </form>
+
+	
+	</td>
+        </tr>
+
+        <!-- Row 3 -->
+        <tr>
+          <td></td>
+          <td style="height: 50px;">
+		<form action="http://192.168.240.123:5000/do/backward" method="post" target="hiddenFrame">
+                    <button type = "submit">backwards</button>
+                </form>	
+		
+	  </td>
+          <td></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+
+    <!-- Processed stream -->
+    <td style="height: 400px;">
+      <!-- Change IP tomorrow if needed -->
+      <img src="http://192.168.240.123:5000/stream_processed" width="800" height="600" />
+    </td>
+
+    <td style="height: 400px;">
+    </td>
+
+  </tr>
+</table>
+
+</body>
+</html>
