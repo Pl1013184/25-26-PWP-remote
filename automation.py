@@ -73,10 +73,10 @@ def update_automation(frame):
     global auto_running, stop_line_seen, stop_time
 
     # Always process the frame so the processed stream can still display overlays
-    out, steering_value, stop_line_detected, center_line,left,right = process_frame(frame)
+    out, steering_value, stop_line_detected, center_line,left,right,det = process_frame(frame)
 
     if not auto_running:
-        return out
+        return out,det
 
     # If the stop line is detected for the first time, start the stop timer
     if stop_line_detected and not stop_line_seen:
@@ -95,7 +95,7 @@ def update_automation(frame):
         #_send_command('forward')
         time.sleep(1)
         stop_automation()
-        return out
+        return out,det
     if stop_line_seen and right and not center_line:
         print('turn left initialized')
         #_send_command('forward')
@@ -106,13 +106,13 @@ def update_automation(frame):
        # _send_command('forward')
         time.sleep(5)
         stop_automation()
-        return out
+        return out,det
     elif stop_line_seen and not center_line:
         elapsed = time.time() - stop_time
         time.sleep(6.0)
         if elapsed >= STOP_DELAY_SECONDS:
             stop_automation()
-            return out
+            return out,det
     if center_line:
     # Normal line-following behavior
         _send_command('forward')
@@ -122,4 +122,4 @@ def update_automation(frame):
         set_motor_speeds(-10.0)
     else:
        stop_automation(True)
-    return out
+    return out,det
