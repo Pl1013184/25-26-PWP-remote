@@ -103,7 +103,7 @@ def gen_processed():
         with buf_lock:
             out,det = update_automation(frame)
         should_popup=det
-        print(det)
+        print("detected face:",det)
         ok, buf = cv2.imencode(".jpg", out)
         if not ok:
             continue
@@ -171,5 +171,5 @@ def stop():
     """
     Stop automation mode.
     """
-    stop_automation()
+    stop_automation(False)
     return "Automation stopped"

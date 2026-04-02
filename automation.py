@@ -50,6 +50,7 @@ def stop_automation(pause=False):
     auto_running = pause
     stop_line_seen = False
     stop_time = None
+    explorer=False
     stop_all()
 
 
@@ -58,8 +59,60 @@ def is_running():
     Return whether automatic mode is currently active.
     """
     return auto_running
-
-
+last_c=""
+def explorer(l,right,horizontal):
+    #print("explorer:",explored)
+    global last_c
+    if l and right:
+        return True
+    if horizontal:
+        print('turn left initialized-following horizontal')
+        _send_command('forward')
+        time.sleep(3.8)
+#        print('turn right initialized')
+        set_motor_speeds(-40)
+        time.sleep(1.0)
+        _send_command('forward')
+        time.sleep(5)
+        stop_automation(True)
+        return False
+    elif horizontal and right:
+        print('turn right initialized')
+        _send_command('forward')
+        time.sleep(3.0)
+        #print("turn right initialized")
+        set_motor_speeds(40)
+        time.sleep(1.0)
+        _send_command('forward')
+        time.sleep(1)
+        stop_automation(True)
+        return False
+    elif horizontal and l:
+        print('turn left initialized')
+        _send_command('forward')
+        time.sleep(3.8)
+#        print('turn right initialized')
+        set_motor_speeds(-40)
+        time.sleep(1.0)
+        _send_command('forward')
+        time.sleep(5)
+        stop_automation(True)
+        return False
+    elif l:
+        last_c="l"
+        _send_command('forward')
+    elif right:
+        last_c='r'
+        _send_command('forward')
+    else:
+        if last_c == 'l':
+            set_motor_speeds(10)
+        elif last_c == 'r':
+            set_motor_speeds(-10)
+        elif last_c=="":
+            _send_command("forward")
+        return False
+explored=False
 def update_automation(frame):
     """
     Process one frame of video and update robot behavior.
@@ -70,11 +123,14 @@ def update_automation(frame):
     Returns:
         out: The processed overlay image.
     """
-    global auto_running, stop_line_seen, stop_time
+    global auto_running, stop_line_seen, stop_time, explored
+
 
     # Always process the frame so the processed stream can still display overlays
     out, steering_value, stop_line_detected, center_line,left,right,det = process_frame(frame)
-
+    print("explorer:",explored)
+    if not explored:
+        explored=explorer(left,right,stop_line_detected)
     if not auto_running:
         return out,det
 
@@ -91,8 +147,8 @@ def update_automation(frame):
         time.sleep(3.0)
         #print("turn right initialized")
         set_motor_speeds(40)
-        time.sleep(1.4)
-        #_send_command('forward')
+        time.sleep(1)
+        _send_command('forward')
         time.sleep(1)
         stop_automation()
         return out,det
@@ -103,7 +159,7 @@ def update_automation(frame):
 #        print('turn right initialized')
         set_motor_speeds(-40)
         time.sleep(1.0)
-       # _send_command('forward')
+        _send_command('forward')
         time.sleep(5)
         stop_automation()
         return out,det

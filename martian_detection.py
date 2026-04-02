@@ -63,7 +63,7 @@ def finder(path_to_foto,pathing_):
 	id,cofind=recognizer.predict(aOIest)
 	print('there',time.time()-intz_tm)
 	print(f"Confidence Score: {cofind}")
-	if cofind<166:
+	if cofind>166:
 		print('we are not alone')
 #		alien_is_there(True)
 #		cv2.rectangle(init_ts.ret(), (x,y),(x+w,y+h),(0,255,0),2)

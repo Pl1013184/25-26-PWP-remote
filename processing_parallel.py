@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import martian_detection as finder
+#import martian_detection as finder
 def ptl(point:tuple,line:list,linPoint):
     x=point[0]
     y=point[1]
@@ -16,9 +16,9 @@ def process_frame(frame):
     new_s = cv2.multiply(s_channel, 1.6)
     new_hsv = cv2.merge([h_channel, new_s, v_channel])
     #face processing
-    face_found,face_frm=finder.detect_face(frame)
-#    face_found,face_frm=True,True
-
+    #face_found,face_frm=finder.detect_face(frame)
+    face_found,face_frm=True,False
+    #slowed down
 
 
 
