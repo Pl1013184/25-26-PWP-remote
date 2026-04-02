@@ -163,9 +163,10 @@ def play():
     start_automation()
     return "Automation started"
 
-@app.route("/do/<dir>")
+@app.route("/do/<dir>", methods=["POST"])
 def do(dir):
-   mot._send_command(dir) 
+   mot._send_command(str(dir)) 
+   return f"command {dir} sent"
 @app.route("/stop", methods=["POST"])
 def stop():
     """

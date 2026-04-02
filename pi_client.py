@@ -84,6 +84,7 @@ class MotorDriver:
         motor_id : 0 = left, 1 = right
         returns  : nothing
         """
+        print(f"stopped {motor_id}")
         pwm_pin = self.PWMA if motor_id == 0 else self.PWMB
         self.pwm.setDutycycle(pwm_pin, 0)
 
@@ -115,6 +116,7 @@ def execute_command(cmd: str):
         Motor.MotorStop(1)
 
     else:                        # unknown command – play safe
+        print(f'error: wrong command {cmd}')
         Motor.MotorStop(0)
         Motor.MotorStop(1)
 def motor_run(id,dir,sped):

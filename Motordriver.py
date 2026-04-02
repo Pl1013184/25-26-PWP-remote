@@ -30,8 +30,7 @@ def _send_command(command: str) -> None:
     """
     if pi_client is not None:
         pi_client.execute_command(command)
-    else:
-        print(f"[Motordriver placeholder] Command sent: {command}")
+        print(f"[Motordriver] Command sent: {command}")
 
 
 def MotorRun(motor_index: int, direction: str, speed: int) -> None:
@@ -62,6 +61,7 @@ def stop_all() -> None:
     """
     Stop all robot motion.
     """
+    print("stop called")
     _send_command(stop)
 
 

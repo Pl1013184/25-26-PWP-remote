@@ -63,6 +63,7 @@ last_c=""
 def explorer(l,right,horizontal):
     #print("explorer:",explored)
     global last_c
+    print("last_c=",last_c)
     if l and right:
         return True
     if horizontal:
@@ -71,7 +72,7 @@ def explorer(l,right,horizontal):
         time.sleep(3.8)
 #        print('turn right initialized')
         set_motor_speeds(-40)
-        time.sleep(1.0)
+        time.sleep(1.5)
         _send_command('forward')
         time.sleep(5)
         stop_automation(True)
@@ -105,13 +106,15 @@ def explorer(l,right,horizontal):
         last_c='r'
         _send_command('forward')
     else:
+        print('here')
         if last_c == 'l':
-            set_motor_speeds(10)
+            set_motor_speeds(15)
         elif last_c == 'r':
-            set_motor_speeds(-10)
+            set_motor_speeds(-15)
         elif last_c=="":
+            #print("here")
             _send_command("forward")
-        return False
+    return False
 explored=False
 def update_automation(frame):
     """
@@ -129,11 +132,11 @@ def update_automation(frame):
     # Always process the frame so the processed stream can still display overlays
     out, steering_value, stop_line_detected, center_line,left,right,det = process_frame(frame)
     print("explorer:",explored)
-    if not explored:
-        explored=explorer(left,right,stop_line_detected)
     if not auto_running:
         return out,det
-
+    if not explored:
+        explored = explorer(left,right,stop_line_detected)
+        return out,det
     # If the stop line is detected for the first time, start the stop timer
     if stop_line_detected and not stop_line_seen:
         stop_line_seen = True
