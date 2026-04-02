@@ -195,6 +195,7 @@ def process_frame(frame):
             continue
   
         fill = area / (rw * rh)
+<<<<<<< HEAD
         if fill < 0.4:
             continue
         aspect = max(rw, rh) / min(rw, rh)
@@ -202,6 +203,16 @@ def process_frame(frame):
             continue
         obstacle_exists = True
         cv2.circle(out,(int(cx),int(cy)),int(area),(255,100,255),4)
+=======
+        if fill < 0.4:   
+            continue
+        
+        aspect = max(rw, rh) / min(rw, rh)
+        if aspect > 3.0:
+            continue   
+    
+        obstacle_exists = True
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
         print(f"obstacle found: pos=({cx:.0f},{cy:.0f}), area={area:.0f}, aspect={aspect:.2f}")
         break
 

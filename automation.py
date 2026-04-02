@@ -1,9 +1,12 @@
 
+<<<<<<< HEAD
 import pickle as pck
 try:
     settings=pck.load(open('setting.txt','rb'))
 except:
     settings=[None,[3.8,-40,1.5],[3,40,1]]
+=======
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
 """
 Purpose:
 Control the robot's automatic movement.
@@ -24,8 +27,12 @@ import processing_parallel
 from processing_parallel import process_frame
 from motor_steering import set_motor_speeds
 from Motordriver import stop_all,_send_command,turn_right
+<<<<<<< HEAD
 from obstacle import avoid_obstacle
 from log_store import log_sto
+=======
+
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
 # Auto-mode state variables
 auto_running = False
 stop_line_seen = False
@@ -69,16 +76,22 @@ last_c=""
 def explorer(l,right,horizontal):
     #print("explorer:",explored)
     global last_c
+<<<<<<< HEAD
     if not is_running():
         print('ended due to stop')
         log_sto('ended due to stop')
         return False
+=======
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
     print("last_c=",last_c)
     if l and right:
         return True
     if horizontal:
         print('turn left initialized-following horizontal')
+<<<<<<< HEAD
         log_sto('turn left initialized-following horizontal')
+=======
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
         _send_command('forward')
         time.sleep(3.8)
 #        print('turn right initialized')
@@ -87,6 +100,7 @@ def explorer(l,right,horizontal):
         _send_command('forward')
         time.sleep(5)
         stop_automation(True)
+<<<<<<< HEAD
         #return False
     elif horizontal and right:
         print('turn right initialized')
@@ -112,6 +126,31 @@ def explorer(l,right,horizontal):
         time.sleep(5)
         stop_automation(True)
         #return False
+=======
+        return False
+    elif horizontal and right:
+        print('turn right initialized')
+        _send_command('forward')
+        time.sleep(3.0)
+        #print("turn right initialized")
+        set_motor_speeds(40)
+        time.sleep(1.0)
+        _send_command('forward')
+        time.sleep(1)
+        stop_automation(True)
+        return False
+    elif horizontal and l:
+        print('turn left initialized')
+        _send_command('forward')
+        time.sleep(3.8)
+#        print('turn right initialized')
+        set_motor_speeds(-40)
+        time.sleep(1.0)
+        _send_command('forward')
+        time.sleep(5)
+        stop_automation(True)
+        return False
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
     elif l:
         last_c="l"
         _send_command('forward')
@@ -119,10 +158,18 @@ def explorer(l,right,horizontal):
         last_c='r'
         _send_command('forward')
     else:
+<<<<<<< HEAD
         if last_c == 'l':
             set_motor_speeds(25)
         elif last_c == 'r':
             set_motor_speeds(-25)
+=======
+        print('here')
+        if last_c == 'l':
+            set_motor_speeds(15)
+        elif last_c == 'r':
+            set_motor_speeds(-15)
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
         elif last_c=="":
             #print("here")
             _send_command("forward")
@@ -142,9 +189,14 @@ def update_automation(frame):
 
 
     # Always process the frame so the processed stream can still display overlays
+<<<<<<< HEAD
     out, steering_value, stop_line_detected, center_line,left,right,det,obst = process_frame(frame)
     print("explorer:",explored)
     log_sto("explorer mode:"+str(explored))
+=======
+    out, steering_value, stop_line_detected, center_line,left,right,det = process_frame(frame)
+    print("explorer:",explored)
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
     if not auto_running:
         return out,det
     if not explored:
@@ -193,9 +245,13 @@ def update_automation(frame):
     elif right:
         set_motor_speeds(-10.0)
     else:
+<<<<<<< HEAD
         stop_automation(True)
     if obst:
         log_sto('found obstacle... avoiding')
         avoid_obstacle()
 
+=======
+       stop_automation(True)
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
     return out,det
