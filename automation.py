@@ -16,7 +16,6 @@ Pseudocode:
 
 import time
 import processing_parallel
-from martian_detection import detect_face
 from processing_parallel import process_frame
 from motor_steering import set_motor_speeds
 from Motordriver import stop_all,_send_command,turn_right
@@ -60,10 +59,6 @@ def is_running():
     """
     return auto_running
 
-def martian_face(frame):
-    if face_detection(frame):
-        print("We are not alone!")
-
 
 def update_automation(frame):
     """
@@ -92,26 +87,25 @@ def update_automation(frame):
     # then stop completely
     if stop_line_seen and left and not center_line:
         print('turn right initialized')
-        _send_command('forward')
+        #_send_command('forward')
         time.sleep(3.0)
         #print("turn right initialized")
-        set_motor_speeds(35)
-        time.sleep(0.8)
-        _send_command('forward')
+        set_motor_speeds(40)
+        time.sleep(1.4)
+        #_send_command('forward')
         time.sleep(1)
-        #stop_automation()
+        stop_automation()
         return out
     if stop_line_seen and right and not center_line:
         print('turn left initialized')
-        _send_command('forward')
+        #_send_command('forward')
         time.sleep(3.8)
 #        print('turn right initialized')
         set_motor_speeds(-40)
-        time.sleep(1.5)
-        _send_command('forward')
-        time.sleep(1)
-        #stop_automation()
-        print('turn finished')
+        time.sleep(1.0)
+       # _send_command('forward')
+        time.sleep(5)
+        stop_automation()
         return out
     elif stop_line_seen and not center_line:
         elapsed = time.time() - stop_time

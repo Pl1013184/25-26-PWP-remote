@@ -58,7 +58,7 @@ class MotorDriver:
         # pick the correct PWM channel
         pwm_pin = self.PWMA if motor_id == 0 else self.PWMB
         if motor_id!=1:
-            speed-=6
+            speed-=7
         self.pwm.setDutycycle(pwm_pin, speed)
 
         # set the two direction pins
