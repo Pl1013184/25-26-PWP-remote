@@ -178,5 +178,34 @@ def process_frame(frame):
     #point to line
     cv2.circle(out,(out.shape[1]//2,9*out.shape[0]//10),5,(255,0,0),-1)
     cv2.polylines(out,roi_pts,True,(0,0,255),5)
+
+    #detect obstacles
+    #preprocessing
+    kernel_ob = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
+    closed = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel_ob)
+    obstacle_contour, _ = cv2.findContours(closed, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    #Start to determine if the obstacle exist
+    obstacle_exists = False
+    for cnt in obstacle_contour:
+         
+        area = cv2.contourArea(cnt)
+        rect = cv2.minAreaRect(cnt)
+        (cx, cy), (rw, rh), ang = rect
+        if rw == 0 or rh == 0:
+            continue
+  
+        fill = area / (rw * rh)
+        if fill < 0.4:   
+            continue
+        
+        aspect = max(rw, rh) / min(rw, rh)
+        if aspect > 3.0:
+            continue   
+    
+        obstacle_exists = True
+        print(f"obstacle found: pos=({cx:.0f},{cy:.0f}), area={area:.0f}, aspect={aspect:.2f}")
+        break
+
+
 #    out =cv2.imread('wanted.jpg')
-    return out, steering_value, stop_line_detected,center_line,lft,rght,face_frm
+    return out, steering_value, stop_line_detected,center_line,lft,rght,face_frm,obstacle_exists

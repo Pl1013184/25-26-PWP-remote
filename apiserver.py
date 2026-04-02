@@ -10,6 +10,10 @@ Pseudocode:
 5. Serve the processed video stream.
 6. Start and stop automation when the GUI buttons are pressed.
 '''
+from datetime import datetime as dt
+from datetime import timezone
+utc_dt=datetime.now(timezone.utc)
+l_dt=utc_dt.astimezone()
 import Motordriver as mot
 import threading
 #from tkinter import messagebox
@@ -112,9 +116,16 @@ def gen_processed():
             b"--frame\r\n"
             b"Content-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
         )
-
-
-
+def log_sto(info):
+    try:
+        openlog=open("log.txt","x")
+        openlog.close()
+        openlog = open("log.txt","a+")
+    except:
+        openlog=open("log.txt","a+")
+    openlog.write(info+"["+l_dt.now().strftime("%H:%M:%S")+"]"+"\n")
+    openlog.seek(0)
+    return openlog.read()
 
 @app.route('/status')
 def status():
@@ -161,16 +172,16 @@ def play():
     """
     calibrate()
     start_automation()
-    return "Automation started"
+    return log_sto("Automation started")
 
 @app.route("/do/<dir>", methods=["POST"])
 def do(dir):
    mot._send_command(str(dir)) 
-   return f"command {dir} sent"
+   return log_sto(f"command {dir} sent")
 @app.route("/stop", methods=["POST"])
 def stop():
     """
     Stop automation mode.
     """
     stop_automation(False)
-    return "Automation stopped"
+    return log_sto("Automation stopped")
