@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import pickle as pk
 import pi_client as cli
 import time
@@ -63,7 +63,3 @@ def calibrate():
 
 		calibrate()
 calibrate()
-=======
-def calibrate():
-	pass
->>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109

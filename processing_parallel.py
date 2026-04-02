@@ -186,16 +186,15 @@ def process_frame(frame):
     obstacle_contour, _ = cv2.findContours(closed, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     #Start to determine if the obstacle exist
     obstacle_exists = False
-    for cnt in obstacle_contour:
+    for c in obstacle_contour:
          
-        area = cv2.contourArea(cnt)
-        rect = cv2.minAreaRect(cnt)
+        area = cv2.contourArea(c)
+        rect = cv2.minAreaRect(c)
         (cx, cy), (rw, rh), ang = rect
         if rw == 0 or rh == 0:
             continue
   
         fill = area / (rw * rh)
-<<<<<<< HEAD
         if fill < 0.4:
             continue
         aspect = max(rw, rh) / min(rw, rh)
@@ -203,16 +202,6 @@ def process_frame(frame):
             continue
         obstacle_exists = True
         cv2.circle(out,(int(cx),int(cy)),int(area),(255,100,255),4)
-=======
-        if fill < 0.4:   
-            continue
-        
-        aspect = max(rw, rh) / min(rw, rh)
-        if aspect > 3.0:
-            continue   
-    
-        obstacle_exists = True
->>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
         print(f"obstacle found: pos=({cx:.0f},{cy:.0f}), area={area:.0f}, aspect={aspect:.2f}")
         break
 

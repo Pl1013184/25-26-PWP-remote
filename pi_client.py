@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from log_store import log_sto
 #!/usr/bin/python
 import pickle as pckl
@@ -10,9 +10,8 @@ def update_settings():
 	except:
 	    settings=[4]
 	return settings
-=======
 #!/usr/bin/python
->>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
+
 """
 Raspberry Pi motor-client
 -------------------------
@@ -66,22 +65,17 @@ class MotorDriver:
         speed    : 0 – 100 (duty-cycle %)
         returns  : nothing (just moves the motor)
         """
-<<<<<<< HEAD
+
         settings=update_settings()
-=======
->>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
+
         if speed > 100:
             return
         print(motor_id,speed)
         # pick the correct PWM channel
         pwm_pin = self.PWMA if motor_id == 0 else self.PWMB
         if motor_id!=1:
-<<<<<<< HEAD
             print(f'diff {settings[0]}')
             speed-=settings[0]
-=======
-            speed-=4
->>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
         self.pwm.setDutycycle(pwm_pin, speed)
 
         # set the two direction pins
