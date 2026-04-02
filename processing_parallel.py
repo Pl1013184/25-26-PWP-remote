@@ -153,7 +153,7 @@ def process_frame(frame):
         center_line=False
     # stop line detection
     stop_line_detected = False
-
+   # determining_point=frame_center_x
     if len(horizontal_lines) > 0:
         longest_line = max(
             horizontal_lines,
@@ -161,6 +161,7 @@ def process_frame(frame):
         )
 
         x1, y1, x2, y2 = longest_line
+    #    determining_point=(x1+x2)//2
         cv2.line(out, (x1, y1), (x2, y2), (0, 255, 255), 4)
         stop_line_detected = True
     cv2.polylines(out,roi_pts,True,(0,0,255),5)

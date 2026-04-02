@@ -85,24 +85,29 @@ def update_automation(frame):
 
     # If the robot has already seen the stop line, keep going for a short delay,
     # then stop completely
-    if stop_line_seen and left:
+    if stop_line_seen and left and not center_line:
         print('turn right initialized')
         _send_command('forward')
-        time.sleep(2.0)
+        time.sleep(3.0)
         #print("turn right initialized")
         set_motor_speeds(40)
         time.sleep(1.4)
         _send_command('forward')
         time.sleep(1)
-#        stop_automation()
+        stop_automation()
         return out
-    if stop_line_seen and right:
+    if stop_line_seen and right and not center_line:
         print('turn left initialized')
-        set_motor_speeds(40)
-        time.sleep(1.4)
         _send_command('forward')
-        time.sleep(1)
-    elif stop_line_seen:
+        time.sleep(3.8)
+        print('turn right initialized')
+        set_motor_speeds(-40)
+        time.sleep(1.0)
+        _send_command('forward')
+        time.sleep(5)
+        stop_automation()
+        return out
+    elif stop_line_seen and not center_line:
         elapsed = time.time() - stop_time
         time.sleep(6.0)
         if elapsed >= STOP_DELAY_SECONDS:
