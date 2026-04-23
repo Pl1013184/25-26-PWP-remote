@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+import martian_detection as finder
 def ptl(point:tuple,line:list,linPoint):
     x=point[0]
     y=point[1]
@@ -15,6 +15,13 @@ def process_frame(frame):
 
     new_s = cv2.multiply(s_channel, 1.6)
     new_hsv = cv2.merge([h_channel, new_s, v_channel])
+    #face processing
+    face_found,face_frm=finder.detect_face(frame)
+#    face_found,face_frm=True,True
+
+
+
+
 
     # Convert to grayscale
     gray = cv2.cvtColor(new_hsv, cv2.COLOR_BGR2GRAY)
@@ -171,4 +178,5 @@ def process_frame(frame):
     #point to line
     cv2.circle(out,(out.shape[1]//2,9*out.shape[0]//10),5,(255,0,0),-1)
     cv2.polylines(out,roi_pts,True,(0,0,255),5)
-    return out, steering_value, stop_line_detected,center_line,lft,rght
+#    out =cv2.imread('wanted.jpg')
+    return out, steering_value, stop_line_detected,center_line,lft,rght,face_frm
