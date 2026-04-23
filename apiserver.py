@@ -1,141 +1,175 @@
-
-"""
+'''ImportError: cannot import name \'alien_is_there'' from partially initialized module \'apiserver\' (most likely due to a circular import) (/home/pi/JDESL/automation1/apiserver.py)
 Purpose:
-Control the robot's automatic movement.
+Run the Flask web server.
 
 Pseudocode:
-1. Check whether auto mode is running.
-2. Check whether a stop line has already been detected.
-3. Receive the newest camera frame from the server layer.
-4. Process the frame using OpenCV.
-5. Use the steering value to control motor speeds.
-6. If the horizontal stop line is detected, wait a few seconds so the robot
-   can pass over the line, then stop the robot.
-7. Allow the GUI Play/Stop buttons to start and stop automation.
-"""
-
-import time
-import processing_parallel
-from processing_parallel import process_frame
-from motor_steering import set_motor_speeds
-#from martian_detection.py import detect_face
-from Motordriver import stop_all,_send_command,turn_right
-
-# Auto-mode state variables
-auto_running = False
-stop_line_seen = False
-stop_time = None
-
-# How long the robot should keep moving after it detects the horizontal tape
-# before stopping. You can tune this later if needed.
-STOP_DELAY_SECONDS = 2.0
-
-def start_automation():
-    """
-    Turn on automatic line-following mode.
-    """
-    global auto_running, stop_line_seen, stop_time
-
-    auto_running = True
-    stop_line_seen = False
-    stop_time = None
-
-
-def stop_automation(pause=False):
-    """
-    Turn off automatic line-following mode and stop the robot.
-    """
-    global auto_running, stop_line_seen, stop_time
-
-    auto_running = pause
-    stop_line_seen = False
-    stop_time = None
-    stop_all()
-
-
-def is_running():
-    """
-    Return whether automatic mode is currently active.
-    """
-    return auto_running
-def searching(horizontal_line,l,r):
-    if not horizontal_line:
-        _send_command("forward")
-    elif horizontal_line and l and not r:
-        print('turn right initialized')
-        _send_command('forward')
-        time.sleep(3.0)
-        #print("turn right initialized")
-        set_motor_speeds(40)
-        time.sleep(1.4)
-        _send_command('forward')
-        time.sleep(1)
-    else:
-        stop_automation()
-
-def update_automation(frame):
-    """
-    Process one frame of video and update robot behavior.
-
-    Parameters:
-        frame: The newest camera frame.
-
-    Returns:
-        out: The processed overlay image.
-    """
-    global auto_running, stop_line_seen, stop_time
-
-    # Always process the frame so the processed stream can still display overlays
-    out, steering_value, stop_line_detected, center_line,left,right,det_face = process_frame(frame)
-
-    if not auto_running:
-        return out,det_face
-
-    # If the stop line is detected for the first time, start the stop timer
-    if stop_line_detected and not stop_line_seen:
-        print("hi")
-        stop_automation()
-    # If the robot has already seen the stop line, keep going for a short delay,
-    # then stop completely
-    if stop_line_seen and left and not center_line:
-        print('turn right initialized')
-        #_send_command('forward')
-        time.sleep(3.0)
-        #print("turn right initialized")
-        set_motor_speeds(40)
-        time.sleep(1.4)
-        _send_command('forward')
-        time.sleep(1)
-        stop_automation()
-        return out,det_face
-    if stop_line_seen and right and not center_line:
-        print('turn left initialized')
-        #_send_command('forward')
-        time.sleep(3.8)
-#        print('turn right initialized')
-        set_motor_speeds(-40)
-        time.sleep(1.0)
-       # _send_command('forward')
-        time.sleep(5)
-        stop_automation()
-        return out,det_face
-    elif stop_line_seen and not center_line:
-        elapsed = time.time() - stop_time
-        time.sleep(6.0)
-        if elapsed >= STOP_DELAY_SECONDS:
-            stop_automation()
-            return out,det_face
-    if center_line:
-    # Normal line-following behavior
-        _send_command('forward')
-    elif left:
-        set_motor_speeds(10.0)
-    elif right:
-        set_motor_speeds(-10.0)
-    else:
-       stop_automation(True)
-    return out,det_face
+1. Start the camera.
+2. Continuously read frames in a background thread.
+3. Store the newest frames in a small buffer.
+4. Serve the raw video stream.
+5. Serve the processed video stream.
+6. Start and stop automation when the GUI buttons are pressed.
 '''
-if detect_face(frame):
-    print()
-'''
+import Motordriver as mot
+import threading
+#from tkinter import messagebox
+import cv2
+import numpy as np
+from flask import Flask, Response,jsonify
+
+from automation import start_automation, stop_automation, update_automation
+from calibrate import calibrate
+app = Flask(__name__)
+
+# Camera setup
+cap = cv2.VideoCapture(0)
+
+# Frame buffer
+frame_buffer = [None] * 5
+buf_lock = threading.Lock()
+buf_i = [0]
+
+should_popup = False
+
+def camera_reader():
+    """
+    Continuously read frames from the camera and store them in a circular buffer.
+    """
+    while True:
+        ok, frame = cap.read()
+        if not ok or frame is None:
+            continue
+
+        frame = np.asarray(frame)
+
+        with buf_lock:
+            frame_buffer[buf_i[0]] = frame
+            buf_i[0] += 1
+            if buf_i[0] == len(frame_buffer):
+                buf_i[0] = 0
+
+
+# Start camera thread immediately
+threading.Thread(target=camera_reader, daemon=True).start()
+
+
+def get_latest():
+    """
+    Return a copy of the newest frame in the buffer.
+    """
+    with buf_lock:
+        idx = buf_i[0] - 1
+        if idx < 0:
+            idx = len(frame_buffer) - 1
+
+        frame = frame_buffer[idx]
+        if frame is None:
+            return None
+
+        return frame.copy()
+
+
+def gen_raw():
+    """
+    raw camera video stream for Flask.
+    """
+    while True:
+        frame = get_latest()
+        if frame is None:
+            continue
+
+        ok, buf = cv2.imencode(".jpg", frame)
+        if not ok:
+            continue
+
+        yield (
+            b"--frame\r\n"
+            b"Content-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
+        )
+
+
+def gen_processed():
+    """
+    processed video stream for Flask.
+
+    If auto mode is running, this also updates the robot control logic.
+    If auto mode is not running, it still shows the processed overlay.
+    """
+    while True:
+        frame = get_latest()
+        if frame is None:
+           continue
+        global should_popup
+        with buf_lock:
+            out,det = update_automation(frame)
+        should_popup=det
+        print(det)
+        ok, buf = cv2.imencode(".jpg", out)
+        if not ok:
+            continue
+
+        yield (
+            b"--frame\r\n"
+            b"Content-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
+        )
+
+
+
+
+@app.route('/status')
+def status():
+    return jsonify({"popup": should_popup})
+
+#@app.route('/trigger')
+def trigger():
+    global should_popup
+    should_popup = True
+#    messagebox.showinfo("Title", "We are not alone!")
+#    return jsonify({"ok": True})
+
+
+@app.route('/reset')
+def reset():
+    global should_popup
+    should_popup = False
+    return jsonify({"ok": True})
+
+
+@app.route("/stream")
+def stream():
+    """
+    Raw camera stream route.
+    """
+    return Response(gen_raw(), mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
+@app.route("/stream_processed")
+def stream_processed():
+    """
+    Processed camera stream route.
+    """
+    return Response(
+        gen_processed(),
+        mimetype="multipart/x-mixed-replace; boundary=frame"
+    )
+
+
+@app.route("/play", methods=["POST"])
+def play():
+    """
+    Start automation mode.
+    """
+    calibrate()
+    start_automation()
+    return "Automation started"
+
+@app.route("/do/<dir>")
+def do(dir):
+   mot._send_command(dir) 
+@app.route("/stop", methods=["POST"])
+def stop():
+    """
+    Stop automation mode.
+    """
+    stop_automation()
+    return "Automation stopped"
