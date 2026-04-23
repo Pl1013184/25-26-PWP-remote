@@ -1,4 +1,4 @@
-"""
+'''ImportError: cannot import name \'alien_is_there'' from partially initialized module \'apiserver\' (most likely due to a circular import) (/home/pi/JDESL/automation1/apiserver.py)
 Purpose:
 Run the Flask web server.
 
@@ -9,13 +9,13 @@ Pseudocode:
 4. Serve the raw video stream.
 5. Serve the processed video stream.
 6. Start and stop automation when the GUI buttons are pressed.
-"""
-
+'''
+import Motordriver as mot
 import threading
-
+#from tkinter import messagebox
 import cv2
 import numpy as np
-from flask import Flask, Response
+from flask import Flask, Response,jsonify
 
 from automation import start_automation, stop_automation, update_automation
 from calibrate import calibrate
@@ -29,6 +29,7 @@ frame_buffer = [None] * 5
 buf_lock = threading.Lock()
 buf_i = [0]
 
+should_popup = False
 
 def camera_reader():
     """
@@ -97,10 +98,12 @@ def gen_processed():
     while True:
         frame = get_latest()
         if frame is None:
-            continue
-
-        out = update_automation(frame)
-
+           continue
+        global should_popup
+        with buf_lock:
+            out,det = update_automation(frame)
+        should_popup=det
+        print(det)
         ok, buf = cv2.imencode(".jpg", out)
         if not ok:
             continue
@@ -109,6 +112,27 @@ def gen_processed():
             b"--frame\r\n"
             b"Content-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
         )
+
+
+
+
+@app.route('/status')
+def status():
+    return jsonify({"popup": should_popup})
+
+#@app.route('/trigger')
+def trigger():
+    global should_popup
+    should_popup = True
+#    messagebox.showinfo("Title", "We are not alone!")
+#    return jsonify({"ok": True})
+
+
+@app.route('/reset')
+def reset():
+    global should_popup
+    should_popup = False
+    return jsonify({"ok": True})
 
 
 @app.route("/stream")
@@ -139,7 +163,9 @@ def play():
     start_automation()
     return "Automation started"
 
-
+@app.route("/do/<dir>")
+def do(dir):
+   mot._send_command(dir) 
 @app.route("/stop", methods=["POST"])
 def stop():
     """
