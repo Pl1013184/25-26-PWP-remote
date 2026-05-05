@@ -111,9 +111,20 @@
 </table>
 
 </body>
+<script>
+async function getlog(){
+try{
+const response= await fetch("http:192.168.240.123/log");
+const l_txt= await response.text();
+document.getElementById("hiddenFrame").srcdoc=l_txt;
+}
+</script>
 </html>
-pl1013184@7118L06 h_code % nano gui.2.html 
-pl1013184@7118L06 h_code % cat gui.2.html 
+pl1013184@7118L06 h_code % 
+  [Restored May 5, 2026 at 7:46:30 AM]
+Last login: Tue May  5 07:46:30 on ttys002
+pl1013184@7118L06 h_code % nano gui.2.html
+\%                                                                                                                                                   pl1013184@7118L06 h_code % cat gui.2.html 
 <!DOCTYPE html>
 <html>
 <head>
@@ -232,7 +243,9 @@ async function getlog(){
 try{
 const response= await fetch("http:192.168.240.123/log");
 const l_txt= await response.text();
+console.log("log grabbed\n")
 document.getElementById("hiddenFrame").srcdoc=l_txt;
 }
+let interval = setInterval(getlog(),1000)
 </script>
 </html>
