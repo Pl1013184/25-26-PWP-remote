@@ -24,7 +24,7 @@ import processing_parallel
 from processing_parallel import process_frame
 from motor_steering import set_motor_speeds
 from Motordriver import stop_all,_send_command,turn_right
-from obstacle import avoid_obstacle
+#from obstacle import avoid_obstacle
 from log_store import log_sto
 
 # Auto-mode state variables
@@ -52,13 +52,13 @@ def stop_automation(pause=False):
     """
     Turn off automatic line-following mode and stop the robot.
     """
-    global auto_running, stop_line_seen, stop_time, stopped
+    global auto_running, stop_line_seen, stop_time, stopped, explored
 
     auto_running = pause
     stopped =False
     stop_line_seen = False
     stop_time = None
-    explorer=False
+    explored=False
     stop_all()
 
 
@@ -78,7 +78,7 @@ def explorer(l,right,horizontal):
     print("last_c=",last_c)
     if l and right:
         return True
-    if horizontal:
+    if horizontal and not (l or right):
         print('turn left initialized-following horizontal')
         log_sto('turn left initialized-following horizontal')
         _send_command('forward')
@@ -88,7 +88,7 @@ def explorer(l,right,horizontal):
         time.sleep(settings[1][2])
         _send_command('backward')
         time.sleep(1)
-        stop_automation(True)
+#        stop_automation(True)
         #return False
     elif horizontal and right:
         print('turn right initialized')
@@ -100,7 +100,7 @@ def explorer(l,right,horizontal):
         time.sleep(settings[2][2])
         _send_command('forward')
         time.sleep(1)
-        stop_automation(True)
+#        stop_automation(True)
         #return False
     elif horizontal and l:
         print('turn left initialized')
@@ -111,8 +111,8 @@ def explorer(l,right,horizontal):
         set_motor_speeds(settings[1][1])
         time.sleep(settings[1][2])
         _send_command('forward')
-        time.sleep(5)
-        stop_automation(True)
+        time.sleep(3)
+ #       stop_automation(True)
         #return False
     elif l:
         last_c="l"
@@ -165,30 +165,30 @@ def update_automation(frame):
     if stop_line_seen and left and not center_line:
         print('turn right initialized')
         #_send_command('forward')
-        time.sleep(3.0)
+        time.sleep(settings[2][0])
         #print("turn right initialized")
-        set_motor_speeds(40)
-        time.sleep(1)
+        set_motor_speeds(settings[2][1])
+        time.sleep(settings[2][2])
         _send_command('forward')
         time.sleep(1)
-        stop_automation()
+  #      stop_automation(True)
         return out,det
     if stop_line_seen and right and not center_line:
         print('turn left initialized')
         #_send_command('forward')
-        time.sleep(3.8)
+        time.sleep(settings[1][0])
 #        print('turn right initialized')
-        set_motor_speeds(-40)
-        time.sleep(1.0)
+        set_motor_speeds(settings[1][1])
+        time.sleep(settings[1][2])
         _send_command('forward')
-        time.sleep(5)
-        stop_automation()
+        time.sleep(1)
+   #     stop_automation(True)
         return out,det
     elif stop_line_seen and not center_line:
         elapsed = time.time() - stop_time
         time.sleep(6.0)
         if elapsed >= STOP_DELAY_SECONDS:
-            stop_automation()
+    #        stop_automation()
             return out,det
     if center_line:
     # Normal line-following behavior
@@ -199,9 +199,10 @@ def update_automation(frame):
     elif right:
         set_motor_speeds(-10.0)
     else:
+        log_sto('here')
         stop_automation(True)
     if obst:
         log_sto('found obstacle... avoiding')
-        avoid_obstacle()
-        stop_automation(True)
+#        avoid_obstacle()
+     #   stop_automation(True)
     return out,det

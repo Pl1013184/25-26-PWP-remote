@@ -1,1 +1,340 @@
-command left sent[11:30:05]command right sent[11:30:09]Automation stopped[11:30:13]
+explorer mode:False [13:30:21]<br>
+explorer mode:False [13:30:22]<br>
+explorer mode:False [13:30:22]<br>
+explorer mode:False [13:30:23]<br>
+explorer mode:False [13:30:23]<br>
+explorer mode:False [13:30:24]<br>
+explorer mode:False [13:30:24]<br>
+explorer mode:False [13:30:25]<br>
+explorer mode:False [13:30:25]<br>
+explorer mode:False [13:30:26]<br>
+explorer mode:False [13:30:26]<br>
+explorer mode:False [13:30:27]<br>
+explorer mode:False [13:30:27]<br>
+explorer mode:False [13:30:28]<br>
+explorer mode:False [13:30:28]<br>
+explorer mode:False [13:30:29]<br>
+explorer mode:False [13:30:29]<br>
+explorer mode:False [13:30:30]<br>
+explorer mode:False [13:30:30]<br>
+explorer mode:False [13:30:31]<br>
+explorer mode:False [13:30:31]<br>
+explorer mode:False [13:30:32]<br>
+explorer mode:False [13:30:33]<br>
+explorer mode:False [13:30:33]<br>
+explorer mode:False [13:30:34]<br>
+explorer mode:False [13:30:34]<br>
+explorer mode:False [13:30:35]<br>
+explorer mode:False [13:30:35]<br>
+explorer mode:False [13:30:36]<br>
+explorer mode:False [13:30:36]<br>
+explorer mode:False [13:30:37]<br>
+explorer mode:False [13:30:37]<br>
+explorer mode:False [13:30:38]<br>
+explorer mode:False [13:30:38]<br>
+explorer mode:False [13:30:39]<br>
+explorer mode:False [13:30:39]<br>
+explorer mode:False [13:30:40]<br>
+explorer mode:False [13:30:40]<br>
+explorer mode:False [13:30:41]<br>
+explorer mode:False [13:30:41]<br>
+explorer mode:False [13:30:42]<br>
+Automation started[13:30:42]<br>
+explorer mode:False [13:30:42]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:42]<br>
+explorer mode:False [13:30:43]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:43]<br>
+explorer mode:False [13:30:43]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:43]<br>
+explorer mode:False [13:30:44]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:44]<br>
+explorer mode:False [13:30:44]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:44]<br>
+explorer mode:False [13:30:45]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:45]<br>
+explorer mode:False [13:30:45]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:45]<br>
+explorer mode:False [13:30:46]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:46]<br>
+explorer mode:False [13:30:46]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:46]<br>
+explorer mode:False [13:30:47]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:47]<br>
+explorer mode:False [13:30:47]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:47]<br>
+explorer mode:False [13:30:48]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:48]<br>
+explorer mode:False [13:30:48]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:48]<br>
+explorer mode:False [13:30:49]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:49]<br>
+explorer mode:False [13:30:50]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:50]<br>
+explorer mode:False [13:30:50]<br>
+turn left initialized-following horizontal[13:30:50]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:50]<br>
+[Motordriver] Command sent: backward by /home/pi/25-26-PWP-remote/automation.py[13:30:54]<br>
+explorer mode:False [13:30:56]<br>
+turn left initialized-following horizontal[13:30:56]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:30:56]<br>
+[Motordriver] Command sent: backward by /home/pi/25-26-PWP-remote/automation.py[13:31:00]<br>
+explorer mode:False [13:31:01]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:01]<br>
+explorer mode:False [13:31:02]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:02]<br>
+explorer mode:False [13:31:02]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:02]<br>
+explorer mode:False [13:31:03]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:03]<br>
+explorer mode:False [13:31:03]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:03]<br>
+explorer mode:False [13:31:04]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:04]<br>
+explorer mode:False [13:31:05]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:05]<br>
+explorer mode:False [13:31:05]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:05]<br>
+explorer mode:False [13:31:06]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:06]<br>
+explorer mode:False [13:31:06]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:06]<br>
+explorer mode:False [13:31:07]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:07]<br>
+explorer mode:False [13:31:07]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:07]<br>
+explorer mode:False [13:31:08]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:08]<br>
+explorer mode:False [13:31:08]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:08]<br>
+explorer mode:False [13:31:09]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:09]<br>
+explorer mode:False [13:31:09]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:09]<br>
+explorer mode:False [13:31:10]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:10]<br>
+explorer mode:False [13:31:11]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:11]<br>
+explorer mode:False [13:31:11]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:11]<br>
+explorer mode:False [13:31:12]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:12]<br>
+explorer mode:False [13:31:12]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:12]<br>
+explorer mode:False [13:31:13]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:13]<br>
+explorer mode:False [13:31:13]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:13]<br>
+explorer mode:False [13:31:14]<br>
+explorer mode:True [13:31:14]<br>
+here[13:31:14]<br>
+stop called by/home/pi/25-26-PWP-remote/automation.py[13:31:15]<br>
+[Motordriver] Command sent: stop by /home/pi/25-26-PWP-remote/Motordriver.py[13:31:15]<br>
+found obstacle... avoiding[13:31:15]<br>
+explorer mode:False [13:31:15]<br>
+explorer mode:False [13:31:16]<br>
+explorer mode:False [13:31:16]<br>
+explorer mode:False [13:31:17]<br>
+explorer mode:False [13:31:17]<br>
+explorer mode:False [13:31:18]<br>
+explorer mode:False [13:31:18]<br>
+explorer mode:False [13:31:19]<br>
+explorer mode:False [13:31:19]<br>
+explorer mode:False [13:31:20]<br>
+explorer mode:False [13:31:20]<br>
+explorer mode:False [13:31:21]<br>
+explorer mode:False [13:31:21]<br>
+explorer mode:False [13:31:22]<br>
+explorer mode:False [13:31:22]<br>
+explorer mode:False [13:31:23]<br>
+explorer mode:False [13:31:23]<br>
+explorer mode:False [13:31:24]<br>
+explorer mode:False [13:31:24]<br>
+explorer mode:False [13:31:25]<br>
+explorer mode:False [13:31:25]<br>
+explorer mode:False [13:31:26]<br>
+explorer mode:False [13:31:26]<br>
+explorer mode:False [13:31:27]<br>
+explorer mode:False [13:31:27]<br>
+explorer mode:False [13:31:28]<br>
+explorer mode:False [13:31:28]<br>
+explorer mode:False [13:31:29]<br>
+explorer mode:False [13:31:30]<br>
+explorer mode:False [13:31:30]<br>
+explorer mode:False [13:31:31]<br>
+explorer mode:False [13:31:31]<br>
+explorer mode:False [13:31:32]<br>
+explorer mode:False [13:31:32]<br>
+explorer mode:False [13:31:33]<br>
+explorer mode:False [13:31:33]<br>
+explorer mode:False [13:31:34]<br>
+explorer mode:False [13:31:34]<br>
+explorer mode:False [13:31:35]<br>
+explorer mode:False [13:31:36]<br>
+Automation started[13:31:36]<br>
+explorer mode:False [13:31:36]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:36]<br>
+explorer mode:False [13:31:37]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:37]<br>
+explorer mode:False [13:31:37]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:37]<br>
+explorer mode:False [13:31:38]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:38]<br>
+explorer mode:False [13:31:38]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:38]<br>
+explorer mode:False [13:31:39]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:39]<br>
+explorer mode:False [13:31:39]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:39]<br>
+explorer mode:False [13:31:40]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:40]<br>
+explorer mode:False [13:31:41]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:41]<br>
+explorer mode:False [13:31:41]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:41]<br>
+explorer mode:False [13:31:42]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:42]<br>
+explorer mode:False [13:31:42]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:42]<br>
+explorer mode:False [13:31:43]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:43]<br>
+explorer mode:False [13:31:43]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:43]<br>
+explorer mode:False [13:31:44]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:44]<br>
+explorer mode:False [13:31:45]<br>
+turn right initialized[13:31:45]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:45]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:49]<br>
+explorer mode:False [13:31:50]<br>
+explorer mode:True [13:31:51]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:51]<br>
+found obstacle... avoiding[13:31:51]<br>
+explorer mode:True [13:31:52]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:31:52]<br>
+found obstacle... avoiding[13:31:52]<br>
+explorer mode:True [13:31:52]<br>
+found obstacle... avoiding[13:31:52]<br>
+explorer mode:True [13:31:53]<br>
+here[13:31:53]<br>
+stop called by/home/pi/25-26-PWP-remote/automation.py[13:31:53]<br>
+[Motordriver] Command sent: stop by /home/pi/25-26-PWP-remote/Motordriver.py[13:31:53]<br>
+found obstacle... avoiding[13:31:53]<br>
+explorer mode:False [13:31:53]<br>
+explorer mode:False [13:31:54]<br>
+explorer mode:False [13:31:54]<br>
+explorer mode:False [13:31:55]<br>
+explorer mode:False [13:31:55]<br>
+explorer mode:False [13:31:56]<br>
+explorer mode:False [13:31:56]<br>
+explorer mode:False [13:31:57]<br>
+explorer mode:False [13:31:58]<br>
+explorer mode:False [13:31:58]<br>
+explorer mode:False [13:31:59]<br>
+explorer mode:False [13:31:59]<br>
+Automation started[13:32:00]<br>
+explorer mode:False [13:32:00]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:00]<br>
+explorer mode:False [13:32:00]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:00]<br>
+explorer mode:False [13:32:01]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:01]<br>
+explorer mode:False [13:32:02]<br>
+turn left initialized[13:32:02]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:02]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:06]<br>
+explorer mode:False [13:32:09]<br>
+explorer mode:True [13:32:10]<br>
+found obstacle... avoiding[13:32:10]<br>
+explorer mode:True [13:32:10]<br>
+here[13:32:10]<br>
+stop called by/home/pi/25-26-PWP-remote/automation.py[13:32:10]<br>
+[Motordriver] Command sent: stop by /home/pi/25-26-PWP-remote/Motordriver.py[13:32:10]<br>
+explorer mode:False [13:32:11]<br>
+explorer mode:False [13:32:11]<br>
+explorer mode:False [13:32:12]<br>
+explorer mode:False [13:32:12]<br>
+explorer mode:False [13:32:13]<br>
+explorer mode:False [13:32:13]<br>
+explorer mode:False [13:32:14]<br>
+explorer mode:False [13:32:14]<br>
+explorer mode:False [13:32:15]<br>
+explorer mode:False [13:32:16]<br>
+explorer mode:False [13:32:16]<br>
+explorer mode:False [13:32:17]<br>
+explorer mode:False [13:32:17]<br>
+explorer mode:False [13:32:18]<br>
+Automation started[13:32:18]<br>
+explorer mode:False [13:32:18]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:18]<br>
+explorer mode:False [13:32:19]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:19]<br>
+explorer mode:False [13:32:19]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:19]<br>
+explorer mode:False [13:32:20]<br>
+turn left initialized[13:32:20]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:20]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:24]<br>
+explorer mode:False [13:32:28]<br>
+explorer mode:False [13:32:28]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:28]<br>
+explorer mode:False [13:32:29]<br>
+explorer mode:False [13:32:29]<br>
+explorer mode:False [13:32:30]<br>
+explorer mode:False [13:32:30]<br>
+explorer mode:False [13:32:31]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:31]<br>
+explorer mode:False [13:32:31]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:31]<br>
+explorer mode:False [13:32:32]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:32]<br>
+explorer mode:False [13:32:32]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:32]<br>
+explorer mode:False [13:32:33]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:33]<br>
+explorer mode:False [13:32:33]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:33]<br>
+explorer mode:False [13:32:34]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:34]<br>
+explorer mode:False [13:32:35]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:35]<br>
+explorer mode:False [13:32:35]<br>
+explorer mode:False [13:32:36]<br>
+explorer mode:False [13:32:36]<br>
+explorer mode:False [13:32:37]<br>
+explorer mode:True [13:32:37]<br>
+found obstacle... avoiding[13:32:37]<br>
+explorer mode:True [13:32:38]<br>
+found obstacle... avoiding[13:32:38]<br>
+explorer mode:True [13:32:38]<br>
+found obstacle... avoiding[13:32:38]<br>
+explorer mode:True [13:32:39]<br>
+found obstacle... avoiding[13:32:39]<br>
+explorer mode:True [13:32:40]<br>
+found obstacle... avoiding[13:32:40]<br>
+explorer mode:True [13:32:40]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:44]<br>
+explorer mode:True [13:32:46]<br>
+explorer mode:True [13:32:52]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:32:57]<br>
+explorer mode:True [13:32:58]<br>
+[Motordriver] Command sent: forward by /home/pi/25-26-PWP-remote/automation.py[13:33:02]<br>
+explorer mode:True [13:33:04]<br>
+explorer mode:True [13:33:10]<br>
+explorer mode:True [13:33:17]<br>
+stop called by/home/pi/25-26-PWP-remote/automation.py[13:33:18]<br>
+[Motordriver] Command sent: stop by /home/pi/25-26-PWP-remote/Motordriver.py[13:33:18]<br>
+Automation stopped[13:33:18]<br>
+stop called by/home/pi/25-26-PWP-remote/automation.py[13:33:19]<br>
+[Motordriver] Command sent: stop by /home/pi/25-26-PWP-remote/Motordriver.py[13:33:19]<br>
+Automation stopped[13:33:19]<br>
+explorer mode:False [13:33:23]<br>
+explorer mode:False [13:33:24]<br>
+explorer mode:False [13:33:24]<br>
+explorer mode:False [13:33:25]<br>
+explorer mode:False [13:33:25]<br>
+explorer mode:False [13:33:26]<br>
+explorer mode:False [13:33:26]<br>
+explorer mode:False [13:33:27]<br>
+explorer mode:False [13:33:27]<br>
+explorer mode:False [13:33:28]<br>
+explorer mode:False [13:33:28]<br>

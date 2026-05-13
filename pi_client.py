@@ -1,4 +1,17 @@
+
+from log_store import log_sto
 #!/usr/bin/python
+import pickle as pckl
+def update_settings():
+	try:
+	    setting=open('setting.txt','rb')
+	    settings=pckl.load(setting)
+	    print('loaded')
+	except:
+	    settings=[4]
+	return settings
+#!/usr/bin/python
+
 """
 Raspberry Pi motor-client
 -------------------------
@@ -52,13 +65,17 @@ class MotorDriver:
         speed    : 0 – 100 (duty-cycle %)
         returns  : nothing (just moves the motor)
         """
+
+        settings=update_settings()
+
         if speed > 100:
             return
         print(motor_id,speed)
         # pick the correct PWM channel
         pwm_pin = self.PWMA if motor_id == 0 else self.PWMB
         if motor_id!=1:
-            speed-=4
+            print(f'diff {settings[0]}')
+            speed-=settings[0]
         self.pwm.setDutycycle(pwm_pin, speed)
 
         # set the two direction pins
@@ -135,7 +152,11 @@ while True:
         reply.raise_for_status()
         new_cmd = reply.json().get('direction', 'stop')
 
+<<<<<<< HEAD
+        # oWnly touch the motors if the order actually changed
+=======
         # only touch the motors if the order actually changed
+>>>>>>> 20de0da523b94548546924a1263782882528cd55
         if new_cmd != last_command:
             print(f"new order → {new_cmd}")
             execute_command(new_cmd)

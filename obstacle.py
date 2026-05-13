@@ -4,7 +4,7 @@ from processing_parallel import process_frame
 from motor_steering import set_motor_speeds
 from Motordriver import stop_all,_send_command,turn_right
 
-if find_obstacle:
+if trash_exists:
     _send_command('backward')
     time.sleep(2)
     set_motor_speeds(30.0)
