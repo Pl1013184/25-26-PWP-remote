@@ -66,10 +66,10 @@ def stop_all() -> None:
     Stop all robot motion.
     """
     print("stop called")
-<<<<<<< HEAD
+#<<<<<<< HEAD
     log_sto(f"stop called by{inspect.stack()[1].filename}")
-=======
->>>>>>> 20de0da523b94548546924a1263782882528cd55
+#=======
+#>>>>>>> 20de0da523b94548546924a1263782882528cd55
     _send_command(stop)
 
 

@@ -1,6 +1,7 @@
 
 
 
+
 import pickle as pck
 try:
     settings=pck.load(open('setting.txt','rb'))
@@ -92,14 +93,8 @@ def explorer(l,right,horizontal):
 #<<<<<<< HEAD
         _send_command('backward')
         time.sleep(1)
-'''
-=======
-        _send_command('forward')
-        time.sleep(5)
->>>>>>> 20de0da523b94548546924a1263782882528cd55
-'''
         stop_automation(True)
-        #return False
+        return False
     elif horizontal and right:
         print('turn right initialized')
         log_sto('turn right initialized')

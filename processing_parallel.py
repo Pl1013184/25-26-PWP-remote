@@ -6,7 +6,7 @@ from log_store import log_sto
 #trash2.jpg
 #test2.jpg
 #obstacle.jpg
-import martian_detection as finder
+#import martian_detection as finder
 def ptl(point:tuple,line:list,linPoint):
     x=point[0]
     y=point[1]
