@@ -15,7 +15,6 @@ def detect_trash(frame):
     debug = frame.copy()
     h, w = frame.shape[:2]
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    # 关键改动 1：把白色阈值收紧
     white_mask = cv2.inRange(hsv, (0, 0, 200), (180, 40, 255))
     # Otsu
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -26,7 +25,7 @@ def detect_trash(frame):
     mask = cv2.morphologyEx(white_mask, cv2.MORPH_OPEN, kernel_open, iterations=1)
     kernel_close = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (21, 21))
     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel_close, iterations=2)
-    # ROI：去掉顶部干扰
+    # ROi
     roi_mask = np.zeros((h, w), dtype=np.uint8)
     roi_pts = np.array([[
         (0, int(0.20 * h)),
@@ -42,7 +41,7 @@ def detect_trash(frame):
     best_score = 0
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if area < 1000 or area > 0.15 * h * w:
+        if area < 700 or area > 0.15 * h * w:
             continue
         rect = cv2.minAreaRect(cnt)
         (cx, cy), (rw, rh), _ = rect
@@ -73,7 +72,7 @@ def detect_trash(frame):
         cv2.putText(debug, f"TRASH a={int(area)}",
                     (int(cx) - 50, int(cy) - 20),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 165, 255), 2)
-        print("la ji bei jian ce dao le")
+   #     print("la ji bei jian ce dao le")
     return trash_exists, debug, mask
 def process_frame(frame):
     # Convert to HSV and boost saturation
@@ -246,6 +245,7 @@ def process_frame(frame):
  #   cv2.destroyAllWindows()
     if obstacle_exists:
         print(True)
+        print("you le")
     else:
         print(False)
 #    out =cv2.imread('wanted.jpg')
