@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-x
-=======
 
->>>>>>> 20de0da523b94548546924a1263782882528cd55
 import pickle as pk
 import pi_client as cli
 import time

@@ -22,6 +22,7 @@ import cv2
 import numpy as np
 from flask import Flask, Response,jsonify
 #<<<<<<< HEAD
+import time
 from log_store import log_sto,gimmefull
 #=======
 #from log_store import log_sto
@@ -35,7 +36,7 @@ app = Flask(__name__)
 cap = cv2.VideoCapture(0)
 
 # Frame buffer
-frame_buffer = [None] * 5
+frame_buffer = [None] * 2
 buf_lock = threading.Lock()
 buf_i = [0]
 
@@ -48,8 +49,9 @@ def camera_reader():
     while True:
         ok, frame = cap.read()
         if not ok or frame is None:
+            time.sleep(0.001)
             continue
-
+#        print(type(frame))
         frame = np.asarray(frame)
 
         with buf_lock:
@@ -75,7 +77,7 @@ def get_latest():
         frame = frame_buffer[idx]
         if frame is None:
             return None
-
+        time.sleep(0.01)
         return frame.copy()
 
 
@@ -86,6 +88,7 @@ def gen_raw():
     while True:
         frame = get_latest()
         if frame is None:
+            time.sleep(0.001)
             continue
 
         ok, buf = cv2.imencode(".jpg", frame)
@@ -96,7 +99,7 @@ def gen_raw():
             b"--frame\r\n"
             b"Content-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
         )
-
+        time.sleep(0.01)
 
 def gen_processed():
     """

@@ -93,8 +93,8 @@ def explorer(l,right,horizontal):
 #<<<<<<< HEAD
         _send_command('backward')
         time.sleep(1)
-        stop_automation(True)
-        return False
+#        stop_automation(True)
+#        return False
     elif horizontal and right:
         print('turn right initialized')
         log_sto('turn right initialized')
@@ -105,7 +105,7 @@ def explorer(l,right,horizontal):
         time.sleep(settings[2][2])
         _send_command('forward')
         time.sleep(1)
-        stop_automation(True)
+ #       stop_automation(True)
         #return False
     elif horizontal and l:
         print('turn left initialized')
@@ -116,8 +116,8 @@ def explorer(l,right,horizontal):
         set_motor_speeds(settings[1][1])
         time.sleep(settings[1][2])
         _send_command('forward')
-        time.sleep(5)
-        stop_automation(True)
+        time.sleep(1)
+ #       stop_automation(True)
         #return False
     elif l:
         last_c="l"

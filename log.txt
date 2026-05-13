@@ -1,44 +1,12 @@
-test[10:42:25]<br>
-test[10:42:25]<br>
-test[10:42:28]<br>
-test[10:42:32]<br>
-test[10:42:34]<br>
-explorer mode:False [10:42:34]<br>
-test[10:42:36]<br>
-test[10:42:38]<br>
-explorer mode:False [10:42:38]<br>
-test[10:42:41]<br>
-explorer mode:False [10:42:42]<br>
-test[10:42:43]<br>
-test[10:42:45]<br>
-explorer mode:False [10:42:46]<br>
-test[10:42:47]<br>
-command left sent[10:42:47]<br>
-test[10:42:49]<br>
-explorer mode:False [10:42:50]<br>
-test[10:42:51]<br>
-stop called by/home/pi/JDESL/25-26-PWP-remote/automation.py[10:42:51]<br>
-Automation stopped[10:42:51]<br>
-test[10:42:52]<br>
-Automation started[10:42:53]<br>
-test[10:42:54]<br>
-test[10:42:54]<br>
-explorer mode:False [10:42:54]<br>
-test[10:42:58]<br>
-explorer mode:False [10:42:58]<br>
-test[10:43:00]<br>
-test[10:43:02]<br>
-stop called by/home/pi/JDESL/25-26-PWP-remote/automation.py[10:43:02]<br>
-Automation stopped[10:43:02]<br>
-test[10:43:02]<br>
-explorer mode:False [10:43:02]<br>
-command right sent[10:43:03]<br>
-test[10:43:06]<br>
-explorer mode:False [10:43:06]<br>
-test[10:43:08]<br>
-stop called by/home/pi/JDESL/25-26-PWP-remote/automation.py[10:43:08]<br>
-Automation stopped[10:43:08]<br>
-test[10:43:08]<br>
-stop called by/home/pi/JDESL/25-26-PWP-remote/automation.py[10:43:09]<br>
-Automation stopped[10:43:09]<br>
-test[10:43:10]<br>
+L: 8, R: 81[11:35:44]<br>
+L: 81, R: 8[11:35:51]<br>
+L: 8, R: 81[11:36:18]<br>
+L: 81, R: 8[11:36:24]<br>
+L: 8, R: 81[11:36:49]<br>
+L: 81, R: 8[11:36:54]<br>
+test[11:37:09]<br>
+test[11:37:09]<br>
+test[11:37:13]<br>
+test[11:37:13]<br>
+test[11:37:17]<br>
+test[11:37:17]<br>

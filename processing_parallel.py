@@ -14,65 +14,46 @@ def ptl(point:tuple,line:list,linPoint):
 def detect_trash(frame):
     debug = frame.copy()
     h, w = frame.shape[:2]
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    white_mask = cv2.inRange(hsv, (0, 0, 200), (180, 40, 255))
-    # Otsu
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    _, otsu_mask = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-    white_mask = cv2.bitwise_and(white_mask, otsu_mask)
-    kernel_open = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    mask = cv2.morphologyEx(white_mask, cv2.MORPH_OPEN, kernel_open, iterations=1)
-    kernel_close = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (21, 21))
-    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel_close, iterations=2)
-    # ROi
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    background = cv2.GaussianBlur(gray, (151, 151), 0)
+
+
+    diff = cv2.subtract(gray, background)
+
+    _, mask = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
+
+    low_sat = cv2.inRange(hsv, (0, 0, 0), (180, 80, 255))
+    mask = cv2.bitwise_and(mask, low_sat)
+
+    blue_mask = cv2.inRange(hsv, (90, 80, 50), (130, 255, 255))
+    mask = cv2.bitwise_and(mask, cv2.bitwise_not(blue_mask))
+
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=1)
+    kernel_big = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (25, 25))
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel_big, iterations=2)
+
+
     roi_mask = np.zeros((h, w), dtype=np.uint8)
-    roi_pts = np.array([[
-        (0, int(0.20 * h)),
-        (w, int(0.20 * h)),
-        (w, h),
-        (0, h)
-    ]], dtype=np.int32)
-    cv2.fillPoly(roi_mask, roi_pts, 255)
+    cv2.rectangle(roi_mask, (0, int(0.20 * h)), (w, h), 255, -1)
     mask = cv2.bitwise_and(mask, roi_mask)
+
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
     trash_exists = False
-    best_cnt = None
-    best_score = 0
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if area < 700 or area > 0.15 * h * w:
-            continue
-        rect = cv2.minAreaRect(cnt)
-        (cx, cy), (rw, rh), _ = rect
-        if rw == 0 or rh == 0:
-            continue
-        aspect = max(rw, rh) / min(rw, rh)
-        if aspect > 2.5:
-            continue
-        fill = area / (rw * rh)
-        if fill < 0.5:
-            continue
-        perimeter = cv2.arcLength(cnt, True)
-        if perimeter == 0:
-            continue
-        circularity = 4 * np.pi * area / (perimeter * perimeter)
-        if circularity < 0.3:
-            continue
-        score = area * fill * circularity
-        if score > best_score:
-            best_score = score
-            best_cnt = (cnt, rect, area)
-    if best_cnt is not None:
-        cnt, rect, area = best_cnt
-        (cx, cy), _, _ = rect
-        trash_exists = True
-        box = np.int32(cv2.boxPoints(rect))
-        cv2.drawContours(debug, [box], 0, (0, 165, 255), 3)
-        cv2.putText(debug, f"TRASH a={int(area)}",
-                    (int(cx) - 50, int(cy) - 20),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 165, 255), 2)
-   #     print("la ji bei jian ce dao le")
+        if 500 < area < 0.25 * h * w:
+            trash_exists = True
+            x, y, rw, rh = cv2.boundingRect(cnt)
+            cv2.rectangle(debug, (x, y), (x + rw, y + rh), (0, 165, 255), 3)
+            cv2.putText(debug, f"TRASH a={int(area)}", (x, max(y - 10, 20)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 165, 255), 2)
+        break
+
     return trash_exists, debug, mask
 def process_frame(frame):
     # Convert to HSV and boost saturation
@@ -93,11 +74,6 @@ def process_frame(frame):
     # Preprocessing
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (17, 17))
     dilated = cv2.dilate(blur, kernel, iterations=1)
-    #slowed down
-
-
-
-
     # Convert to grayscale
     gray = cv2.cvtColor(new_hsv, cv2.COLOR_BGR2GRAY)
 
