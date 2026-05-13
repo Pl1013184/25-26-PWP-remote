@@ -18,4 +18,5 @@ def avoid_obstacle():
     time.sleep(2.8)
     set_motor_speeds(25.0)
     time.sleep(1.0)
-#    stop_all()
+    stop_all()
+

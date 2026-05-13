@@ -1,4 +1,3 @@
-
 import cv2
 import numpy as np
 from log_store import log_sto
@@ -7,6 +6,7 @@ from log_store import log_sto
 #trash2.jpg
 #test2.jpg
 #obstacle.jpg
+import martian_detection as finder
 def ptl(point:tuple,line:list,linPoint):
     x=point[0]
     y=point[1]
@@ -93,6 +93,21 @@ def process_frame(frame):
     # Preprocessing
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (17, 17))
     dilated = cv2.dilate(blur, kernel, iterations=1)
+    #slowed down
+
+
+
+
+    # Convert to grayscale
+    gray = cv2.cvtColor(new_hsv, cv2.COLOR_BGR2GRAY)
+
+    # Blur
+    blur = cv2.GaussianBlur(gray, (9, 9), 10)
+
+    # Preprocessing
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (17, 17))
+    dilated = cv2.dilate(blur, kernel, iterations=1)
+
     binary = cv2.adaptiveThreshold(
         dilated,
         255,
@@ -109,6 +124,19 @@ def process_frame(frame):
     edges = cv2.Canny(binary, 100, 200)
     h, w = frame.shape[:2]
     frame_center_x = w // 2
+
+    kernel_small = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel_small)
+
+    kernel_big = cv2.getStructuringElement(cv2.MORPH_RECT, (11, 11))
+    binary = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel_big)
+
+    # Canny
+    edges = cv2.Canny(binary, 100, 200)
+
+    h, w = frame.shape[:2]
+    frame_center_x = w // 2
+
     # ROI / segmentation for lane lines
     roi_pts = np.array([[
         (int(0.2 * w), 0),
@@ -133,6 +161,13 @@ def process_frame(frame):
     left_lines = []
     right_lines = []
     horizontal_lines = []
+
+    out = frame.copy()
+
+    left_lines = []
+    right_lines = []
+    horizontal_lines = []
+
     if lines is not None:
         for x1, y1, x2, y2 in lines[:, 0]:
             dx = x2 - x1
@@ -140,6 +175,11 @@ def process_frame(frame):
             if dx == 0:
                 continue
             slope = dy / dx
+            if dx == 0:
+                continue
+
+            slope = dy / dx
+
             # horizontal stop line candidates
             if abs(slope) < 0.3:
                 line_length = np.hypot(dx, dy)
@@ -150,6 +190,11 @@ def process_frame(frame):
             # keep only steeper lines for left/right lane lines
             if abs(slope) < 0.5:
                 continue
+
+            # keep only steeper lines for left/right lane lines
+            if abs(slope) < 0.5:
+                continue
+
             if slope < 0:
                 left_lines.append((x1, y1, x2, y2))
             else:
@@ -168,6 +213,28 @@ def process_frame(frame):
         x1 = int(fit[0] * y1 + fit[1])
         x2 = int(fit[0] * y2 + fit[1])
         return (x1, y1, x2, y2)
+
+    def average_line(line_list):
+        if len(line_list) == 0:
+            return None
+
+        xs = []
+        ys = []
+
+        for x1, y1, x2, y2 in line_list:
+            xs += [x1, x2]
+            ys += [y1, y2]
+
+        fit = np.polyfit(ys, xs, 1)
+
+        y1 = h
+        y2 = int(h * 0.5)
+
+        x1 = int(fit[0] * y1 + fit[1])
+        x2 = int(fit[0] * y2 + fit[1])
+
+        return (x1, y1, x2, y2)
+
     left = average_line(left_lines)
     right = average_line(right_lines)
     lft=False
@@ -186,6 +253,16 @@ def process_frame(frame):
         cy1 = int((left[1] + right[1]) / 2)
         cx2 = int((left[2] + right[2]) / 2)
         cy2 = int((left[3] + right[3]) / 2)
+    # draw robot/frame center line
+    cv2.line(out, (frame_center_x, 0), (frame_center_x, h), (0, 0, 255), 2)
+
+    if left is not None and right is not None:
+        cx1 = int((left[0] + right[0]) / 2)
+        cy1 = int((left[1] + right[1]) / 2)
+
+        cx2 = int((left[2] + right[2]) / 2)
+        cy2 = int((left[3] + right[3]) / 2)
+
         # blue center line
         cv2.line(out, (cx1, cy1), (cx2, cy2), (255, 0, 0), 4)
         center_line=True
@@ -214,6 +291,10 @@ def process_frame(frame):
     #detect obstacles
     #preprocessing
     kernel_ob = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
+
+    #detect obstacles
+    #preprocessing
+    kernel_ob = cv2.getStructuringElement(cv2.MORPH_RECT, (5,5))
     closed = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel_ob)
     obstacle_contour, _ = cv2.findContours(closed, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     #Start to determine if the obstacle exist
@@ -248,5 +329,24 @@ def process_frame(frame):
         print("you le")
     else:
         print(False)
+    for c in obstacle_contour:
+
+        area = cv2.contourArea(c)
+        rect = cv2.minAreaRect(c)
+        (cx, cy), (rw, rh), ang = rect
+        if rw == 0 or rh == 0:
+            continue
+
+        fill = area / (rw * rh)
+        if fill < 0.4:
+            continue
+        aspect = max(rw, rh) / min(rw, rh)
+        if aspect > 3.0:
+            continue
+        obstacle_exists = True
+        cv2.circle(out,(int(cx),int(cy)),int(area),(255,100,255),4)
+        print(f"obstacle found: pos=({cx:.0f},{cy:.0f}), area={area:.0f}, aspect={aspect:.2f}")
+        break
+
 #    out =cv2.imread('wanted.jpg')
     return out, steering_value, stop_line_detected,center_line,lft,rght,face_frm,obstacle_exists

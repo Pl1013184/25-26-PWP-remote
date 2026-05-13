@@ -14,8 +14,13 @@ try:
     import pi_client
 except ImportError:
     pi_client = None
+#<<<<<<< HEAD
 from log_store import log_sto
 import inspect
+#=======
+
+
+#>>>>>>> 20de0da523b94548546924a1263782882528cd5
 # Direction constants
 forward = "forward"
 backward = "backward"
@@ -31,7 +36,6 @@ def _send_command(command: str) -> None:
     if pi_client is not None:
         pi_client.execute_command(command)
         print(f"[Motordriver] Command sent: {command}")
-        log_sto(f"[Motordriver] Command sent: {command} by {inspect.stack(0)[1].filename}")
 
 def MotorRun(motor_index: int, direction: str, speed: int) -> None:
     """
@@ -62,7 +66,10 @@ def stop_all() -> None:
     Stop all robot motion.
     """
     print("stop called")
+<<<<<<< HEAD
     log_sto(f"stop called by{inspect.stack()[1].filename}")
+=======
+>>>>>>> 20de0da523b94548546924a1263782882528cd55
     _send_command(stop)
 
 

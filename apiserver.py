@@ -21,7 +21,11 @@ from flask import render_template as r_t
 import cv2
 import numpy as np
 from flask import Flask, Response,jsonify
+#<<<<<<< HEAD
 from log_store import log_sto,gimmefull
+#=======
+#from log_store import log_sto
+#>>>>>>> 20de0da523b94548546924a1263782882528cd55
 from automation import start_automation, stop_automation, update_automation
 if 'y' in input("start calibration?") and 'n' not in input("start calibration?"):
     from calibrate import calibrate
@@ -185,10 +189,14 @@ def do(dir):
    return log_sto(f"command {dir} sent")
 @app.route("/log", methods=["GET"])
 def log():
+#<<<<<<< HEAD
    return log_sto("test")
 @app.route("/flog", methods=["GET"])
 def flog():
    return gimmefull()
+#=======
+#   return log_sto("")
+#>>>>>>> 20de0da523b94548546924a1263782882528cd55
 @app.route("/stop", methods=["POST"])
 def stop():
     """
@@ -198,4 +206,10 @@ def stop():
     return log_sto("Automation stopped")
 @app.route("/gui", methods=["GET"])
 def gui():
+#<<<<<<< HEAD
     return r_t('gui.html', name='main_gui')
+'''
+=======
+    return    r_t('gui.html', name='main_gui')
+>>>>>>> 20de0da523b94548546924a1263782882528cd55
+'''

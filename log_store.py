@@ -1,9 +1,16 @@
+'''
+<<<<<<< HEAD
 
+=======
+>>>>>>> 20de0da523b94548546924a1263782882528cd55
+'''
 from datetime import datetime as dt
 from datetime import timezone
 utc_dt=dt.now(timezone.utc)
 l_dt=utc_dt.astimezone()
+
 partial_l=""
+
 try:
     openlog=open("log.txt","x")
     openlog.close()
@@ -23,3 +30,8 @@ def log_sto(info):
 def gimmefull():
     read=open("log.txt","r")
     return read.read()
+    openlog = open("log.txt","a+")
+    openlog.write(info+"["+l_dt.now().strftime("%H:%M:%S")+"]"+"<br>")
+    openlog.seek(0)
+    return openlog.read()
+

@@ -152,7 +152,11 @@ while True:
         reply.raise_for_status()
         new_cmd = reply.json().get('direction', 'stop')
 
+<<<<<<< HEAD
         # oWnly touch the motors if the order actually changed
+=======
+        # only touch the motors if the order actually changed
+>>>>>>> 20de0da523b94548546924a1263782882528cd55
         if new_cmd != last_command:
             print(f"new order → {new_cmd}")
             execute_command(new_cmd)
