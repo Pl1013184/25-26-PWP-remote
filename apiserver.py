@@ -12,17 +12,19 @@ Pseudocode:
 '''
 from datetime import datetime as dt
 from datetime import timezone
-utc_dt=datetime.now(timezone.utc)
+utc_dt=dt.now(timezone.utc)
 l_dt=utc_dt.astimezone()
 import Motordriver as mot
 import threading
+from flask import render_template as r_t
 #from tkinter import messagebox
 import cv2
 import numpy as np
 from flask import Flask, Response,jsonify
-
+from log_store import log_sto,gimmefull
 from automation import start_automation, stop_automation, update_automation
-from calibrate import calibrate
+if 'y' in input("start calibration?") and 'n' not in input("start calibration?"):
+    from calibrate import calibrate
 app = Flask(__name__)
 
 # Camera setup
@@ -116,6 +118,9 @@ def gen_processed():
             b"--frame\r\n"
             b"Content-Type: image/jpeg\r\n\r\n" + buf.tobytes() + b"\r\n"
         )
+'''
+=======
+>>>>>>> ab2f61ab3dad8298b4646765e5853024ca61b109
 def log_sto(info):
     try:
         openlog=open("log.txt","x")
@@ -126,12 +131,12 @@ def log_sto(info):
     openlog.write(info+"["+l_dt.now().strftime("%H:%M:%S")+"]"+"\n")
     openlog.seek(0)
     return openlog.read()
-
+<<<<<<< HEAD'''
 @app.route('/status')
 def status():
     return jsonify({"popup": should_popup})
 
-#@app.route('/trigger')
+@app.route('/trigger')
 def trigger():
     global should_popup
     should_popup = True
@@ -170,7 +175,7 @@ def play():
     """
     Start automation mode.
     """
-    calibrate()
+#    calibrate()
     start_automation()
     return log_sto("Automation started")
 
@@ -178,6 +183,12 @@ def play():
 def do(dir):
    mot._send_command(str(dir)) 
    return log_sto(f"command {dir} sent")
+@app.route("/log", methods=["GET"])
+def log():
+   return log_sto("")
+@app.route("/flog", methods=["GET"])
+def flog():
+   return gimmefull()
 @app.route("/stop", methods=["POST"])
 def stop():
     """
@@ -185,3 +196,7 @@ def stop():
     """
     stop_automation(False)
     return log_sto("Automation stopped")
+@app.route("/gui", methods=["GET"])
+def gui():
+    return    r_t('gui.html', name='main_gui')
+    
