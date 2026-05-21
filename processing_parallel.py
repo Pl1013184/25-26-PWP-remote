@@ -261,7 +261,14 @@ def process_frame(frame):
     #    determining_point=(x1+x2)//2
         cv2.line(out, (x1, y1), (x2, y2), (0, 255, 255), 4)
         stop_line_detected = True
-    #point to line
+        l_turn=False
+        r_turn=False
+        if min(x1,x2)>min(left[0],left[1]):
+            print("left turn detected")
+            l_turn=True
+            #point to line
+        if max(x1,x2)<max(right[0],right[1]):
+            r_turn=True
     cv2.circle(out,(out.shape[1]//2,9*out.shape[0]//10),5,(255,0,0),-1)
     cv2.polylines(out,roi_pts,True,(0,0,255),5)
     #detect obstacles
@@ -325,4 +332,4 @@ def process_frame(frame):
         break
 
 #    out =cv2.imread('wanted.jpg')
-    return out, steering_value, stop_line_detected,center_line,lft,rght,face_frm,obstacle_exists
+    return out, steering_value, stop_line_detected,center_line,lft,rght,face_frm,obstacle_exists,l_turn,r_turn
