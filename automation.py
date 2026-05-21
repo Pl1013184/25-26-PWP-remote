@@ -152,7 +152,7 @@ def update_automation(frame):
 
 
     # Always process the frame so the processed stream can still display overlays
-    out, steering_value, stop_line_detected, center_line,left,right,det,obst = process_frame(frame)
+    out, steering_value, stop_line_detected, center_line,left,right,det,obst,l_t,r_t = process_frame(frame)
     print("explorer:",explored)
     log_sto("explorer mode:"+str(explored)+" ")
     if not auto_running or not stopped:
@@ -167,7 +167,7 @@ def update_automation(frame):
 
     # If the robot has already seen the stop line, keep going for a short delay,
     # then stop completely
-    if stop_line_seen and left and not center_line:
+    if stop_line_seen and left and not center_line and l_t:
         print('turn right initialized')
         #_send_command('forward')
         time.sleep(3.0)
@@ -178,7 +178,7 @@ def update_automation(frame):
         time.sleep(1)
         stop_automation()
         return out,det
-    if stop_line_seen and right and not center_line:
+    if stop_line_seen and right and not center_line and r_t:
         print('turn left initialized')
         #_send_command('forward')
         time.sleep(3.8)
